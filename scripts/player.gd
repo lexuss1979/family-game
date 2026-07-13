@@ -25,6 +25,44 @@ const CHARACTER_NAMES := [
 	"Бабушка №1",
 	"Бабушка №2",
 ]
+const CHARACTER_PHRASES := [
+	[
+		"У меня так много работы...",
+		"А скоро обед?",
+		"Куда в этой семье деваются деньги?",
+	],
+	[
+		"Дети, идите кушать!",
+		"Микки, хватит лаять!",
+		"Лёш, а можно я ещё 5 кустов смородины посажу?",
+	],
+	[
+		"Ну что опять...",
+		"Скайрим надоел, надо снова ставить Тимфортрес.",
+		"Кто выпил мой «Очаковский»?!",
+	],
+	[
+		"Не мешайте мне жить!",
+		"А где мой сёсик-пёсик?",
+		"Вот блинда...",
+	],
+	[
+		"Гав-гав, а кормить сегодня будут?",
+		"Вы видели вообще, что кот делает?",
+	],
+	[
+		"Мяу. Давайте собаку выгоним, м?",
+		"Мяу-муррр. Кто меня погладит, тому ничего не будет.",
+	],
+	[
+		"В наше время такого не было.",
+		"А давайте чай пить.",
+	],
+	[
+		"Здравствуйте, мои дорогие!",
+		"Какие вы уже взрослые стали.",
+	],
+]
 
 enum AiState {
 	IDLE,
@@ -41,6 +79,11 @@ var ai_state := AiState.IDLE
 var ai_timer := 0.0
 var ai_direction := Vector2.ZERO
 var random := RandomNumberGenerator.new()
+var speech_bubble: PanelContainer
+var speech_label: Label
+var speech_timer := 0.0
+var speech_visible_timer := 0.0
+var last_phrase_index := -1
 
 
 func configure(new_character_index: int, controlled: bool) -> void:
@@ -68,7 +111,22 @@ func _ready() -> void:
 	set_process_unhandled_input(player_controlled)
 	if not player_controlled:
 		_start_idle()
+	_create_speech_bubble()
+	# Stagger the first phrases so the whole family does not speak at once.
+	speech_timer = 2.0 + character_index * 1.6 + random.randf_range(0.0, 1.5)
 	queue_redraw()
+
+
+func _process(delta: float) -> void:
+	if speech_bubble.visible:
+		speech_visible_timer -= delta
+		if speech_visible_timer <= 0.0:
+			speech_bubble.hide()
+			speech_timer = random.randf_range(8.0, 16.0)
+	else:
+		speech_timer -= delta
+		if speech_timer <= 0.0:
+			_show_random_phrase()
 
 
 func _physics_process(delta: float) -> void:
@@ -162,3 +220,49 @@ func _start_walk() -> void:
 	ai_state = AiState.WALK
 	ai_direction = directions[random.randi_range(0, directions.size() - 1)]
 	ai_timer = random.randf_range(0.9, 2.2)
+
+
+func _create_speech_bubble() -> void:
+	speech_bubble = PanelContainer.new()
+	speech_bubble.name = "SpeechBubble"
+	speech_bubble.position = Vector2(-135.0, -190.0)
+	speech_bubble.custom_minimum_size = Vector2(270.0, 0.0)
+	speech_bubble.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	speech_bubble.z_index = 100
+	speech_bubble.hide()
+
+	var bubble_style := StyleBoxFlat.new()
+	bubble_style.bg_color = Color(1.0, 0.98, 0.91, 0.96)
+	bubble_style.border_color = Color(0.34, 0.25, 0.18, 0.9)
+	bubble_style.set_border_width_all(2)
+	bubble_style.set_corner_radius_all(14)
+	bubble_style.content_margin_left = 14.0
+	bubble_style.content_margin_right = 14.0
+	bubble_style.content_margin_top = 10.0
+	bubble_style.content_margin_bottom = 10.0
+	speech_bubble.add_theme_stylebox_override("panel", bubble_style)
+
+	speech_label = Label.new()
+	speech_label.name = "Phrase"
+	speech_label.custom_minimum_size = Vector2(238.0, 0.0)
+	speech_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	speech_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	speech_label.add_theme_font_size_override("font_size", 17)
+	speech_label.add_theme_color_override("font_color", Color("3e3027"))
+	speech_bubble.add_child(speech_label)
+	add_child(speech_bubble)
+
+
+func _show_random_phrase() -> void:
+	var phrases: Array = CHARACTER_PHRASES[character_index]
+	var phrase_index := random.randi_range(0, phrases.size() - 1)
+	if phrases.size() > 1 and phrase_index == last_phrase_index:
+		phrase_index = (phrase_index + 1) % phrases.size()
+	last_phrase_index = phrase_index
+	speech_label.text = phrases[phrase_index]
+	speech_visible_timer = random.randf_range(3.5, 5.5)
+	speech_bubble.show()
+
+
+func get_phrase_count() -> int:
+	return CHARACTER_PHRASES[character_index].size()

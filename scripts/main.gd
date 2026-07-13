@@ -7,6 +7,7 @@ enum GameState {
 }
 
 const CharacterScene := preload("res://scripts/player.gd")
+const ProceduralMusicScene := preload("res://scripts/procedural_music.gd")
 const WORLD_SIZE := Vector2(2400.0, 1300.0)
 const HOUSE := Rect2(80.0, 100.0, 2240.0, 1080.0)
 const WALL_THICKNESS := 24.0
@@ -27,6 +28,7 @@ const NPC_SPECS := [
 
 var player
 var npcs: Array[CharacterBody2D] = []
+var music: AudioStreamPlayer
 var door_shape: CollisionShape2D
 var status_label: Label
 var prompt_label: Label
@@ -36,10 +38,17 @@ var elapsed_time := 0.0
 
 
 func _ready() -> void:
+	_create_music()
 	_create_world_collision()
 	_create_characters()
 	_create_hud()
 	queue_redraw()
+
+
+func _create_music() -> void:
+	music = ProceduralMusicScene.new()
+	music.name = "ProceduralMusic"
+	add_child(music)
 
 
 func _process(delta: float) -> void:
@@ -150,7 +159,7 @@ func _create_hud() -> void:
 	var controls := Label.new()
 	controls.position = Vector2(930.0, 24.0)
 	controls.size = Vector2(320.0, 56.0)
-	controls.text = "Движение: WASD / стрелки\nДействие: E / Пробел"
+	controls.text = "Движение: WASD / стрелки\nДействие: E · Музыка: M"
 	controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	controls.add_theme_font_size_override("font_size", 16)
 	controls.add_theme_color_override("font_color", Color("4a382b"))

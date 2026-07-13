@@ -21,6 +21,19 @@ func _run() -> void:
 	if main.player.get_character_name() != "Папа":
 		_fail("The controlled character must be Father")
 		return
+	if main.music == null or not main.music.playing:
+		_fail("Procedural background music is not playing")
+		return
+	if AudioServer.get_bus_index(&"Music") < 0:
+		_fail("Music audio bus was not created")
+		return
+
+	var characters: Array = [main.player]
+	characters.append_array(main.npcs)
+	for character in characters:
+		if character.get_phrase_count() < 2 or character.speech_bubble == null:
+			_fail("Character %s has no speech bubble phrases" % character.name)
+			return
 
 	var starting_positions: Array[Vector2] = []
 	for npc in main.npcs:
@@ -44,6 +57,7 @@ func _run() -> void:
 
 	print("Smoke test passed: Father is controlled; %d/7 NPCs moved" % moved_count)
 	main.queue_free()
+	await process_frame
 	quit()
 
 
