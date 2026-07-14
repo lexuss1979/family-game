@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="64" viewBox="0 0 192 64">
+  <defs>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8ee1f2"/>
+      <stop offset="1" stop-color="#3ba7d3"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9782e"/>
+      <stop offset="1" stop-color="#8f4d20"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="7" width="186" height="50" rx="9" fill="#563721" opacity=".22"/>
+  <rect x="2" y="4" width="188" height="52" rx="9" fill="#563721"/>
+  <rect x="5" y="7" width="182" height="46" rx="7" fill="url(#wood)"/>
+  <rect x="10" y="11" width="172" height="38" rx="5" fill="#f4e7cf"/>
+  <rect x="15" y="15" width="162" height="30" rx="3" fill="url(#glass)" stroke="#563721" stroke-width="2"/>
+  <rect x="91" y="14" width="10" height="32" rx="2" fill="#f4e7cf" stroke="#563721" stroke-width="2"/>
+  <path d="M25 39L48 17H67L44 39Z" fill="#d5f6fb" opacity=".55"/>
+  <path d="M116 39L139 17H153L130 39Z" fill="#d5f6fb" opacity=".48"/>
+  <path d="M11 12H181" stroke="#fff8e8" stroke-width="2" opacity=".7"/>
+</svg>

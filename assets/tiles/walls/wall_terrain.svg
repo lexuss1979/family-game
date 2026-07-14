@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <!-- Four-neighbour bit mask: left=1, right=2, up=4, down=8. -->
+    <clipPath id="c0"><rect x="0" y="0" width="64" height="64"/></clipPath>
+    <clipPath id="c1"><rect x="64" y="0" width="64" height="64"/></clipPath>
+    <clipPath id="c2"><rect x="128" y="0" width="64" height="64"/></clipPath>
+    <clipPath id="c3"><rect x="192" y="0" width="64" height="64"/></clipPath>
+    <clipPath id="c4"><rect x="0" y="64" width="64" height="64"/></clipPath>
+    <clipPath id="c5"><rect x="64" y="64" width="64" height="64"/></clipPath>
+    <clipPath id="c6"><rect x="128" y="64" width="64" height="64"/></clipPath>
+    <clipPath id="c7"><rect x="192" y="64" width="64" height="64"/></clipPath>
+    <clipPath id="c8"><rect x="0" y="128" width="64" height="64"/></clipPath>
+    <clipPath id="c9"><rect x="64" y="128" width="64" height="64"/></clipPath>
+    <clipPath id="c10"><rect x="128" y="128" width="64" height="64"/></clipPath>
+    <clipPath id="c11"><rect x="192" y="128" width="64" height="64"/></clipPath>
+    <clipPath id="c12"><rect x="0" y="192" width="64" height="64"/></clipPath>
+    <clipPath id="c13"><rect x="64" y="192" width="64" height="64"/></clipPath>
+    <clipPath id="c14"><rect x="128" y="192" width="64" height="64"/></clipPath>
+    <clipPath id="c15"><rect x="192" y="192" width="64" height="64"/></clipPath>
+    <path id="p1" d="M-4 32H32"/>
+    <path id="p2" d="M68 32H32"/>
+    <path id="p3" d="M-4 32H68"/>
+    <path id="p4" d="M32-4V32"/>
+    <path id="p5" d="M-4 32H32V-4"/>
+    <path id="p6" d="M68 32H32V-4"/>
+    <path id="p7" d="M-4 32H68M32 32V-4"/>
+    <path id="p8" d="M32 68V32"/>
+    <path id="p9" d="M-4 32H32V68"/>
+    <path id="p10" d="M68 32H32V68"/>
+    <path id="p11" d="M-4 32H68M32 32V68"/>
+    <path id="p12" d="M32-4V68"/>
+    <path id="p13" d="M32-4V68M32 32H-4"/>
+    <path id="p14" d="M32-4V68M32 32H68"/>
+    <path id="p15" d="M-4 32H68M32-4V68"/>
+
+    <g id="standalone">
+      <circle cx="32" cy="32" r="23" fill="#563721"/>
+      <circle cx="32" cy="32" r="20" fill="#a85f25"/>
+      <circle cx="32" cy="32" r="17" fill="#f4e7cf"/>
+      <circle cx="32" cy="32" r="12" fill="#98aa5e"/>
+      <circle cx="29" cy="29" r="6" fill="#c1cf91" opacity=".42"/>
+    </g>
+
+    <g id="wall1">
+      <use xlink:href="#p1" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/>
+      <use xlink:href="#p1" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/>
+      <use xlink:href="#p1" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/>
+      <use xlink:href="#p1" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/>
+      <use xlink:href="#p1" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/>
+      <path d="M32 11V53" stroke="#563721" stroke-width="4"/><path d="M32 14V50" stroke="#f4e7cf" stroke-width="2"/>
+    </g>
+    <g id="wall2">
+      <use xlink:href="#p2" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/>
+      <use xlink:href="#p2" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/>
+      <use xlink:href="#p2" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/>
+      <use xlink:href="#p2" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/>
+      <use xlink:href="#p2" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/>
+      <path d="M32 11V53" stroke="#563721" stroke-width="4"/><path d="M32 14V50" stroke="#f4e7cf" stroke-width="2"/>
+    </g>
+    <g id="wall4">
+      <use xlink:href="#p4" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/>
+      <use xlink:href="#p4" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/>
+      <use xlink:href="#p4" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/>
+      <use xlink:href="#p4" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/>
+      <use xlink:href="#p4" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/>
+      <path d="M11 32H53" stroke="#563721" stroke-width="4"/><path d="M14 32H50" stroke="#f4e7cf" stroke-width="2"/>
+    </g>
+    <g id="wall8">
+      <use xlink:href="#p8" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/>
+      <use xlink:href="#p8" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/>
+      <use xlink:href="#p8" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/>
+      <use xlink:href="#p8" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/>
+      <use xlink:href="#p8" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/>
+      <path d="M11 32H53" stroke="#563721" stroke-width="4"/><path d="M14 32H50" stroke="#f4e7cf" stroke-width="2"/>
+    </g>
+
+    <!-- Multi-arm tiles share identical layers and therefore meet without seams. -->
+    <g id="wall3"><use xlink:href="#p3" fill="none" stroke="#563721" stroke-width="42"/><use xlink:href="#p3" fill="none" stroke="#a85f25" stroke-width="38"/><use xlink:href="#p3" fill="none" stroke="#f4e7cf" stroke-width="32"/><use xlink:href="#p3" fill="none" stroke="#98aa5e" stroke-width="24"/><use xlink:href="#p3" fill="none" stroke="#bdca86" stroke-width="12" opacity=".35"/></g>
+    <g id="wall5"><use xlink:href="#p5" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p5" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p5" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p5" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p5" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall6"><use xlink:href="#p6" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p6" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p6" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p6" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p6" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall7"><use xlink:href="#p7" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p7" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p7" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p7" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p7" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall9"><use xlink:href="#p9" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p9" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p9" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p9" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p9" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall10"><use xlink:href="#p10" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p10" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p10" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p10" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p10" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall11"><use xlink:href="#p11" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p11" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p11" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p11" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p11" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall12"><use xlink:href="#p12" fill="none" stroke="#563721" stroke-width="42"/><use xlink:href="#p12" fill="none" stroke="#a85f25" stroke-width="38"/><use xlink:href="#p12" fill="none" stroke="#f4e7cf" stroke-width="32"/><use xlink:href="#p12" fill="none" stroke="#98aa5e" stroke-width="24"/><use xlink:href="#p12" fill="none" stroke="#bdca86" stroke-width="12" opacity=".35"/></g>
+    <g id="wall13"><use xlink:href="#p13" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p13" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p13" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p13" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p13" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall14"><use xlink:href="#p14" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p14" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p14" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p14" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p14" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+    <g id="wall15"><use xlink:href="#p15" fill="none" stroke="#563721" stroke-width="42" stroke-linejoin="round"/><use xlink:href="#p15" fill="none" stroke="#a85f25" stroke-width="38" stroke-linejoin="round"/><use xlink:href="#p15" fill="none" stroke="#f4e7cf" stroke-width="32" stroke-linejoin="round"/><use xlink:href="#p15" fill="none" stroke="#98aa5e" stroke-width="24" stroke-linejoin="round"/><use xlink:href="#p15" fill="none" stroke="#bdca86" stroke-width="12" stroke-linejoin="round" opacity=".35"/></g>
+  </defs>
+
+  <g clip-path="url(#c0)"><use xlink:href="#standalone"/></g>
+  <g clip-path="url(#c1)"><use xlink:href="#wall1" transform="translate(64 0)"/></g>
+  <g clip-path="url(#c2)"><use xlink:href="#wall2" transform="translate(128 0)"/></g>
+  <g clip-path="url(#c3)"><use xlink:href="#wall3" transform="translate(192 0)"/></g>
+  <g clip-path="url(#c4)"><use xlink:href="#wall4" transform="translate(0 64)"/></g>
+  <g clip-path="url(#c5)"><use xlink:href="#wall5" transform="translate(64 64)"/></g>
+  <g clip-path="url(#c6)"><use xlink:href="#wall6" transform="translate(128 64)"/></g>
+  <g clip-path="url(#c7)"><use xlink:href="#wall7" transform="translate(192 64)"/></g>
+  <g clip-path="url(#c8)"><use xlink:href="#wall8" transform="translate(0 128)"/></g>
+  <g clip-path="url(#c9)"><use xlink:href="#wall9" transform="translate(64 128)"/></g>
+  <g clip-path="url(#c10)"><use xlink:href="#wall10" transform="translate(128 128)"/></g>
+  <g clip-path="url(#c11)"><use xlink:href="#wall11" transform="translate(192 128)"/></g>
+  <g clip-path="url(#c12)"><use xlink:href="#wall12" transform="translate(0 192)"/></g>
+  <g clip-path="url(#c13)"><use xlink:href="#wall13" transform="translate(64 192)"/></g>
+  <g clip-path="url(#c14)"><use xlink:href="#wall14" transform="translate(128 192)"/></g>
+  <g clip-path="url(#c15)"><use xlink:href="#wall15" transform="translate(192 192)"/></g>
+</svg>

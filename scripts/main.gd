@@ -8,9 +8,17 @@ enum GameState {
 
 const CharacterScene := preload("res://scripts/player.gd")
 const ProceduralMusicScene := preload("res://scripts/procedural_music.gd")
+const TitleScreenScene := preload("res://scripts/title_screen.gd")
+const FloorWood := preload("res://assets/tiles/floors/wood_light.png")
+const FloorKitchenTile := preload("res://assets/tiles/floors/kitchen_tile.png")
+const FloorBathroomTile := preload("res://assets/tiles/floors/bathroom_tile.png")
+const FloorCarpet := preload("res://assets/tiles/floors/carpet.png")
+const WallTerrainAtlas := preload("res://assets/tiles/walls/wall_terrain.svg")
+const WindowTopdown := preload("res://assets/tiles/walls/window_topdown.svg")
 const WORLD_SIZE := Vector2(2400.0, 1300.0)
 const HOUSE := Rect2(80.0, 100.0, 2240.0, 1080.0)
 const WALL_THICKNESS := 24.0
+const WALL_TILE_SIZE := 64.0
 const DIVIDER_X := 1200.0
 const DOOR_POSITION := Vector2(1200.0, 640.0)
 const DOOR_GAP := 120.0
@@ -29,6 +37,7 @@ const NPC_SPECS := [
 var player
 var npcs: Array[CharacterBody2D] = []
 var music: AudioStreamPlayer
+var title_screen: CanvasLayer
 var door_shape: CollisionShape2D
 var status_label: Label
 var prompt_label: Label
@@ -42,6 +51,7 @@ func _ready() -> void:
 	_create_world_collision()
 	_create_characters()
 	_create_hud()
+	_create_title_screen()
 	queue_redraw()
 
 
@@ -49,6 +59,12 @@ func _create_music() -> void:
 	music = ProceduralMusicScene.new()
 	music.name = "ProceduralMusic"
 	add_child(music)
+
+
+func _create_title_screen() -> void:
+	title_screen = TitleScreenScene.new()
+	title_screen.name = "TitleScreen"
+	add_child(title_screen)
 
 
 func _process(delta: float) -> void:
@@ -224,23 +240,20 @@ func _draw() -> void:
 	# has four times the area of the first micro-demo.
 	draw_rect(Rect2(Vector2.ZERO, WORLD_SIZE), Color("dce7c4"))
 	draw_rect(Rect2(68.0, 88.0, 2264.0, 1104.0), Color(0.25, 0.18, 0.12, 0.18))
-	draw_rect(Rect2(92.0, 112.0, 1096.0, 1056.0), Color("d9a25f"))
-	draw_rect(Rect2(1212.0, 112.0, 1096.0, 1056.0), Color("a9ced0"))
 
-	# Temporary repeating floor patterns.
-	for y in range(128, 1168, 32):
-		draw_line(Vector2(92.0, y), Vector2(1188.0, y), Color(0.43, 0.25, 0.12, 0.22), 2.0)
-		var offset := 24 if ((y / 32) as int) % 2 == 0 else 0
-		for x in range(116 + offset, 1188, 64):
-			draw_line(Vector2(x, y - 16), Vector2(x, y + 16), Color(0.43, 0.25, 0.12, 0.16), 1.0)
-	for x in range(1212, 2309, 48):
-		draw_line(Vector2(x, 112.0), Vector2(x, 1168.0), Color(0.16, 0.42, 0.45, 0.15), 1.0)
-	for y in range(112, 1169, 48):
-		draw_line(Vector2(1212.0, y), Vector2(2308.0, y), Color(0.16, 0.42, 0.45, 0.15), 1.0)
+	# Four test zones use the generated floor sheets as repeating textures.
+	draw_texture_rect(FloorWood, Rect2(92.0, 112.0, 1096.0, 528.0), true)
+	draw_texture_rect(FloorCarpet, Rect2(92.0, 640.0, 1096.0, 528.0), true)
+	draw_texture_rect(FloorKitchenTile, Rect2(1212.0, 112.0, 1096.0, 528.0), true)
+	draw_texture_rect(FloorBathroomTile, Rect2(1212.0, 640.0, 1096.0, 528.0), true)
+	draw_line(Vector2(92.0, 640.0), Vector2(1188.0, 640.0), Color("9a6439"), 6.0)
+	draw_line(Vector2(1212.0, 640.0), Vector2(2308.0, 640.0), Color("9a6439"), 6.0)
 
 	# Room labels.
 	draw_string(ThemeDB.fallback_font, Vector2(110.0, 145.0), "ГОСТИНАЯ", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 20, Color(0.28, 0.18, 0.1, 0.55))
-	draw_string(ThemeDB.fallback_font, Vector2(1235.0, 145.0), "СПАЛЬНЯ", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 20, Color(0.08, 0.27, 0.31, 0.55))
+	draw_string(ThemeDB.fallback_font, Vector2(110.0, 675.0), "КОМНАТА С КОВРОМ", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 20, Color(0.28, 0.18, 0.1, 0.55))
+	draw_string(ThemeDB.fallback_font, Vector2(1235.0, 145.0), "КУХНЯ", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 20, Color(0.08, 0.27, 0.31, 0.55))
+	draw_string(ThemeDB.fallback_font, Vector2(1235.0, 675.0), "ВАННАЯ", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 20, Color(0.08, 0.27, 0.31, 0.55))
 
 	# Furniture: sofa, TV, table, bed, wardrobe and desk.
 	draw_rect(Rect2(190.0, 200.0, 320.0, 100.0), Color("426f99"), true)
@@ -259,17 +272,7 @@ func _draw() -> void:
 	draw_line(Vector2(2150.0, 870.0), Vector2(2150.0, 1030.0), Color("59381f"), 3.0)
 	draw_rect(Rect2(1460.0, 890.0, 180.0, 120.0), Color("a66f3d"), true)
 
-	# Walls.
-	var wall_color := Color("f4ead8")
-	var trim_color := Color("9a6439")
-	draw_rect(Rect2(80.0, 88.0, 2240.0, WALL_THICKNESS), wall_color)
-	draw_rect(Rect2(80.0, 1168.0, 2240.0, WALL_THICKNESS), wall_color)
-	draw_rect(Rect2(68.0, 100.0, WALL_THICKNESS, 1080.0), wall_color)
-	draw_rect(Rect2(2308.0, 100.0, WALL_THICKNESS, 1080.0), wall_color)
-	draw_rect(Rect2(1188.0, 100.0, WALL_THICKNESS, 480.0), wall_color)
-	draw_rect(Rect2(1188.0, 700.0, WALL_THICKNESS, 480.0), wall_color)
-	draw_line(Vector2(80.0, 112.0), Vector2(2320.0, 112.0), trim_color, 4.0)
-	draw_line(Vector2(80.0, 1168.0), Vector2(2320.0, 1168.0), trim_color, 4.0)
+	_draw_styled_walls()
 
 	# Door: vertical when closed, swung into the bedroom when open.
 	if door_open:
@@ -289,3 +292,66 @@ func _draw() -> void:
 		draw_rect(Rect2(player.position + Vector2(-7.0, -112.0), Vector2(14.0, 28.0)), Color("30343a"), true)
 	elif state == GameState.COMPLETE:
 		draw_rect(Rect2(SOFA_TARGET + Vector2(-14.0, -8.0), Vector2(28.0, 14.0)), Color("30343a"), true)
+
+
+func _draw_styled_walls() -> void:
+	var top_left := HOUSE.position
+	var top_right := Vector2(HOUSE.end.x, HOUSE.position.y)
+	var bottom_left := Vector2(HOUSE.position.x, HOUSE.end.y)
+	var bottom_right := HOUSE.end
+
+	# Outer rectangle: straight tiles fill the runs, then four exact corner masks
+	# cover the endpoints. Bit mask order is left=1, right=2, up=4, down=8.
+	_draw_wall_run(top_left, top_right, 3)
+	_draw_wall_run(bottom_left, bottom_right, 3)
+	_draw_wall_run(top_left, bottom_left, 12)
+	_draw_wall_run(top_right, bottom_right, 12)
+	_draw_wall_tile(top_left, 10)
+	_draw_wall_tile(top_right, 9)
+	_draw_wall_tile(bottom_left, 6)
+	_draw_wall_tile(bottom_right, 5)
+
+	# The middle wall uses two T-junctions and two capped ends around the door.
+	var upper_door_edge := Vector2(DIVIDER_X, DOOR_POSITION.y - DOOR_GAP * 0.5)
+	var lower_door_edge := Vector2(DIVIDER_X, DOOR_POSITION.y + DOOR_GAP * 0.5)
+	var top_junction := Vector2(DIVIDER_X, HOUSE.position.y)
+	var bottom_junction := Vector2(DIVIDER_X, HOUSE.end.y)
+	_draw_wall_run(top_junction, upper_door_edge, 12)
+	_draw_wall_run(lower_door_edge, bottom_junction, 12)
+	_draw_wall_tile(top_junction, 11)
+	_draw_wall_tile(upper_door_edge, 4)
+	_draw_wall_tile(lower_door_edge, 8)
+	_draw_wall_tile(bottom_junction, 7)
+
+	# Windows are independent overlays, so they never change terrain topology.
+	_draw_window(Vector2(650.0, HOUSE.position.y), 0.0)
+	_draw_window(Vector2(1740.0, HOUSE.position.y), 0.0)
+	_draw_window(Vector2(760.0, HOUSE.end.y), 0.0)
+	_draw_window(Vector2(HOUSE.end.x, 860.0), PI * 0.5)
+
+
+func _draw_wall_run(start: Vector2, finish: Vector2, mask: int) -> void:
+	var length := start.distance_to(finish)
+	var step_count := ceili(length / WALL_TILE_SIZE)
+	for index in range(1, step_count):
+		var center := start.lerp(finish, float(index) / float(step_count))
+		_draw_wall_tile(center, mask)
+
+
+func _draw_wall_tile(center: Vector2, mask: int) -> void:
+	var source_position := Vector2(
+		float(mask % 4) * WALL_TILE_SIZE,
+		float(mask >> 2) * WALL_TILE_SIZE
+	)
+	var source_rect := Rect2(source_position, Vector2.ONE * WALL_TILE_SIZE)
+	var destination_rect := Rect2(
+		center - Vector2.ONE * WALL_TILE_SIZE * 0.5,
+		Vector2.ONE * WALL_TILE_SIZE
+	)
+	draw_texture_rect_region(WallTerrainAtlas, destination_rect, source_rect)
+
+
+func _draw_window(center: Vector2, rotation: float) -> void:
+	draw_set_transform(center, rotation, Vector2.ONE)
+	draw_texture(WindowTopdown, -WindowTopdown.get_size() * 0.5)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)

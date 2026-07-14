@@ -26,6 +26,7 @@ var sample_cursor := 0
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_ensure_music_bus()
 
 	var generator := AudioStreamGenerator.new()
@@ -45,6 +46,17 @@ func _process(_delta: float) -> void:
 	var frames_available := generator_playback.get_frames_available()
 	for _frame in frames_available:
 		generator_playback.push_frame(_synthesize_frame())
+
+
+func _exit_tree() -> void:
+	shutdown()
+
+
+func shutdown() -> void:
+	set_process(false)
+	stop()
+	stream = null
+	generator_playback = null
 
 
 func _unhandled_input(event: InputEvent) -> void:
